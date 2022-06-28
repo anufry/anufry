@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% load martortags %}
+
+{% block metatitle_prefix %}{{ post.title }}{% endblock %}
+
+
+{% block keywords %}    	
+    {% if post.meta_keywords %}
+        {{post.meta_keywords}}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+
+{% block description %}     
+    {% if post.meta_description %}
+        {{post.meta_description}}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+
+{% block containerclass %}container px-4 mx-auto xl:px-2{% endblock %}
+
+{% block breadcrumbs_inner %}
+  <li class="breadcrumb-item">{{ post.title }}</li>
+{% endblock %}
+
+
+{% block title %}{{ post.title }}{% endblock %}
+
+
+{% block content %}
+    <article id="sheetsDetails">
+        <div class="martor-preview">{{post.text|safe_markdown}}</div>
+    </article>                
+{% endblock %}

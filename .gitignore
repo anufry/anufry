@@ -1,0 +1,25 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+### Django ###
+*.log
+*.pot
+*.pyc
+# *.mo # compiled locales
+__pycache__/
+
+.env
+.bash
+
+static/*
+media/*
+
+settings/local.py
+

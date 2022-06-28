@@ -1,0 +1,33 @@
+{% load static %}
+{% load martortags %}
+{% load thumbnail %}
+
+<aside id="blogList">
+	<h2 class="mb-3">Blog last posts</h2>
+
+	<div class="row row-cols-1 row-cols-md-2">
+
+		{% for item in list %}
+		
+	  		<div class="col mb-4">
+				<div class="card h-100">
+					{% thumbnail item.image "1200" as im %}
+					    <a href="{% url 'blog_item' item.slug %}">
+						    <img src="{{ im.url }}" alt="" class="card-img-top">
+						</a>
+					{% endthumbnail %}
+				  <div class="card-body">
+				    <h5 class="card-title"><a href="{% url 'blog_item' item.slug %}">{{item.title}}</a></h5>
+				    <div class="card-text martor-preview">{{item.teaser|safe_markdown}}</div>
+				  </div>
+				  <div class="card-footer"><small class="text-muted">{{item.posted_at}}</small></div>
+				</div>
+			</div>
+
+		{% empty %}
+			<p>Nothing to show...</p>
+		{% endfor %}
+
+	</div>
+
+</aside>

@@ -1,0 +1,60 @@
+{% extends "_base.html" %}
+
+{% load static %}
+{% load martortags %}
+{% load thumbnail %}
+
+
+{% block breadcrumbs_inner %}
+	<li class="breadcrumb-item">Blog</li>
+{% endblock %}
+
+
+{% block title %}Blog posts{% endblock %}
+
+
+{% block content %}
+	
+	{% if search != None %}
+    	<form action="{% url 'blog_list' %}">
+			<div class="row mb-4 mt-3">
+				<div class="col-auto pt-2">
+					Serch results for:
+				</div>
+				<div class="col-md-5">
+					<input type="text" name="search" value="{{search}}"class="form-control" placeholder="Search">
+				</div>
+				<div class="col-auto">
+					<input type="submit" class="btn btn-outline-primary" value="Search">
+				</div>
+				<div class="col-auto pt-2">
+					<a href="{% url 'blog_list' %}">Clean</a>
+				</div>
+			</div>
+		</form>
+    {% endif %}
+
+	<section id="blogList">
+
+		{% for item in list %}
+		
+			<div class="card mb-3">
+				{% thumbnail item.image "1200" as im %}
+				    <a href="{% url 'blog_item' item.slug %}">
+					    <img src="{{ im.url }}" alt="" class="card-img-top">
+					</a>
+				{% endthumbnail %}
+			  <div class="card-body">
+			    <h5 class="card-title"><a href="{% url 'blog_item' item.slug %}">{{item.title}}</a></h5>
+			    <div class="card-text martor-preview">{{item.teaser|safe_markdown}}</div>
+			    <p class="card-text"><small class="text-muted">{{item.posted_at}}</small></p>
+			    <!-- <a href="{% url 'blog_item' item.slug %}" class="btn btn-outline-primary">Read more</a> -->
+			  </div>
+			</div>
+
+		{% empty %}
+			<p>Nothing to show...</p>
+		{% endfor %}
+
+	</section>
+{% endblock %}

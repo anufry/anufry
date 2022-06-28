@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+
+{% load static %}
+{% load martortags %}
+{% load thumbnail %}
+
+
+{% block breadcrumbs_inner %}
+	<li class="breadcrumb-item"><a href="{% url 'blog_list' %}">Blog</a></li>
+	<li class="breadcrumb-item">Post details</li>
+{% endblock %}
+
+
+{% block title %}{{item.title}}{% endblock %}
+
+
+{% block content %}
+	<article id="blogPost">
+		<div class="card mb-3">
+			{% thumbnail item.image "1200" as im %}
+			    <img src="{{ im.url }}" alt="" class="card-img-top">
+			{% endthumbnail %}
+		  <div class="card-body">
+		    <p class="card-text"><small class="text-muted">{{item.posted_at}}</small></p>
+		    <div class="card-text martor-preview">{{item.text|safe_markdown}}</div>
+		    <p class="card-text"><small class="text-muted">{{item.posted_at}}</small></p>
+		  </div>
+		</div>
+
+	</section>
+{% endblock %}
+
+
+{% block css_extend %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+
+{% block js_extend %}
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script>
+    $('.martor-preview pre').each(function(i, block){
+        hljs.highlightBlock(block);
+    });
+  </script>
+{% endblock %}
